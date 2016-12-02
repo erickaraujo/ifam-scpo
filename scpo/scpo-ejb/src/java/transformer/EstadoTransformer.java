@@ -10,11 +10,14 @@ import dto.EstadoDTO;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.Estado;
+import javax.enterprise.context.ApplicationScoped;
 
 /**
  *
  * @author erick.araujo
  */
+
+@ApplicationScoped
 public class EstadoTransformer implements DTOTransformer<Estado, EstadoDTO>{
 
     @Override

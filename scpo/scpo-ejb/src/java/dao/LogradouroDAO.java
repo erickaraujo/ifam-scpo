@@ -10,12 +10,14 @@ import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import modelo.Logradouro;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author erick.araujo
  */
 
+@Stateless
 public class LogradouroDAO {
     
     private DAOBase<Logradouro> dao;

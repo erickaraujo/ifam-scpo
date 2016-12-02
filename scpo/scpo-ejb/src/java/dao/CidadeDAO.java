@@ -9,12 +9,14 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import modelo.Cidade;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author erick.araujo
  */
 
+@Stateless
 public class CidadeDAO {
     
     @PersistenceContext

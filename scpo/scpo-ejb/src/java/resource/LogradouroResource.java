@@ -5,6 +5,7 @@
  */
 package resource;
 
+import javax.ws.rs.client.Client;
 import dao.EstadoDAO;
 import java.util.List;
 import javax.inject.Inject;
@@ -35,12 +36,20 @@ public class LogradouroResource {
     private EstadoDAO estadoDAO;
     
     @GET
+    @Path("/t")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String qlqr(){
+        return "blabla";
+    }
+    
+    @GET
     @Path("/cep/{cep}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Logradouro respostaCep(@PathParam("cep") String cep){
         Logradouro log = new Logradouro();
         
-        log.setCep(cep);
+            log.setBairro("bla");
+            log.setCep(cep);
 
         return log;
     }

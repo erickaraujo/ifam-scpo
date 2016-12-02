@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
  *
  * @author erick.araujo
  */
+
 public class DAOBase<E> {
     
     private final EntityManager em;
