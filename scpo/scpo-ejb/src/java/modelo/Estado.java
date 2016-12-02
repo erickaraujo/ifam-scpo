@@ -6,12 +6,14 @@
 package modelo;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author erick.araujo
  */
 
+@XmlRootElement
 @Entity
 @Table(name = "estado")
 public class Estado extends EntidadeBase{

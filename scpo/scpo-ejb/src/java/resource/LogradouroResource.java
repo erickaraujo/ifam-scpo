@@ -44,10 +44,9 @@ public class LogradouroResource {
     
     @GET
     @Path("/cep/{cep}")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_XML)
     public Logradouro respostaCep(@PathParam("cep") String cep){
         Logradouro log = new Logradouro();
-        
             log.setBairro("bla");
             log.setCep(cep);
 

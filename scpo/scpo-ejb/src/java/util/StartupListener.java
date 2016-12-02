@@ -6,6 +6,9 @@
 package util;
 
 import dao.EstadoDAO;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -23,30 +26,48 @@ import modelo.Estado;
 
 @Singleton
 @Startup
-public class StartupListener {
+public class StartupListener{
     
     @PersistenceContext
     private EntityManager em;
     
     @Inject
     private EstadoDAO estadoDAO;
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
+        populaEstados();
+    }
+
+    private void populaEstados(){
         TypedQuery<Estado> query = em.createQuery("select e from Estado e", Estado.class);
         query.setMaxResults(1);
         List<Estado> cidades = query.getResultList();
         
         if(cidades.isEmpty()){
-            try{
-                Estado estado = new Estado();
-                estado.setNome("Para");
-                estado.setSigla("PA");
-                estadoDAO.inserir(estado);
-            }catch(Exception e){
-                System.out.println(e);
+
+            String line;
+            String cvsSplit = ",";
+
+           try {
+                System.out.println("ff:"+ getClass().getResourceAsStream("/util/lista_estados.csv"));
+                InputStream is = getClass().getResourceAsStream("/util/lista_estados.csv");
+                InputStreamReader file = new InputStreamReader(is);
+                BufferedReader br = new BufferedReader(file);
+
+                while ((line = br.readLine()) != null) {
+                    String[] estados = line.split(cvsSplit);
+
+                    Estado estado = new Estado();
+//                    estado.setId(Integer.parseInt(estados[1]));
+                    estado.setNome(estados[2]);
+                    estado.setSigla(estados[3]);
+                    estadoDAO.inserir(estado);
+                }
+            } catch (Throwable e) {
+                e.printStackTrace();
             }
-            System.out.println("blabla");
         }
     }
+    
 }
