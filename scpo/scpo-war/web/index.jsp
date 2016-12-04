@@ -12,6 +12,12 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Hello!</h1>
+        <form action="./resources/estado/" method="GET">
+            First Name: <input type="text" name="first_name">
+            <br />
+            Last Name: <input type="text" name="last_name" />
+            <input type="submit" value="Submit" />
+        </form>
     </body>
 </html>

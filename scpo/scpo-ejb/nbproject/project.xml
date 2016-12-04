@@ -6,6 +6,8 @@
             <name>scpo-ejb</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <included-library dirs="200">file.reference.javax.ws.rs-api-2.0.jar</included-library>
+            <included-library dirs="200">file.reference.jackson-all-1.9.0.jar</included-library>
+            <included-library dirs="200">file.reference.json-20160810.jar</included-library>
             <source-roots>
                 <root id="src.dir" name="Source Packages"/>
             </source-roots>
