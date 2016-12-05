@@ -34,8 +34,6 @@ public class LogradouroDTO {
         this.descricaoLog = descricaoLog;
     }
     
-    
-    
     public LogradouroDTO(){
     }
 

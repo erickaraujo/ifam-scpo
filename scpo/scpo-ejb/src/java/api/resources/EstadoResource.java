@@ -34,10 +34,8 @@ public class EstadoResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/")
     public Response listarEstados() {
-
-        List<Estado> estados = estadoDAO.listarTodos();
-
         return Response.ok().entity(new EstadoResponse(
-                estadoTransformer.toDTOList(estados))).build();
+                estadoTransformer.toDTOList(estadoDAO.listarTodos()))
+        ).build();
     }
 }

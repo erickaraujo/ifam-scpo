@@ -42,9 +42,6 @@ public class LogradouroResource {
     private CidadeDTO cidadeDTO;
 
     @Inject
-    private CidadeDAO cidadeDAO;
-
-    @Inject
     private CidadeTransformer cidadeTransformer;
 
     @GET
@@ -62,9 +59,11 @@ public class LogradouroResource {
         try {
             ObjectMapper mapper = new ObjectMapper();
             logradouroDTO = mapper.readValue(new URL("http://viacep.com.br/ws/" + cep + "/json/"), LogradouroDTO.class);
-            cidadeDTO = cidadeTransformer.toDTO(cidadeDAO.consultarPorNome(logradouroDTO.getLocalidade().getLocalidade()));
-            logradouroDTO.setLocalidade(cidadeDTO);
             
+            //verifica se logradouro teve cep ou nao
+            boolean c = logradouroDTO.getCep() != null;
+            
+            //implementar. Se true tem/possui string. Se false, algo errado. Escrever teste.
             logradouroDAO.atualizar(logradouroTransformer.toEntity(logradouroDTO));
 
             return Response.ok().entity(logradouroTransformer.toEntity(logradouroDTO)).build();

@@ -19,20 +19,19 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 public class CidadeDTO implements Serializable{
     private Integer id;
     private String localidade;
-    private EstadoDTO estado;
+    private EstadoDTO uf;
     private Integer ibge;
 
     public CidadeDTO(Integer id, String localidade, EstadoDTO estado, Integer ibge) {
         this.id = id;
         this.localidade = localidade;
-        this.estado = estado;
+        this.uf = estado;
         this.ibge = ibge;
     }
 
     public CidadeDTO(String localidade) {
         this.localidade = localidade;
     }
-    
     
     public CidadeDTO(){
     }
@@ -53,12 +52,12 @@ public class CidadeDTO implements Serializable{
         this.localidade = localidade;
     }
 
-    public EstadoDTO getEstado() {
-        return estado;
+    public EstadoDTO getUf() {
+        return uf;
     }
 
-    public void setEstado(EstadoDTO estado) {
-        this.estado = estado;
+    public void setUf(EstadoDTO uf) {
+        this.uf = uf;
     }
 
     public Integer getIbge() {
@@ -74,7 +73,7 @@ public class CidadeDTO implements Serializable{
         return "-----------" + 
                 "\nid=" + id + 
                 "\n localidade=" + localidade + 
-                "\n estado=" + estado + 
+                "\n estado=" + uf + 
                 "\n ibge=" + ibge + "}\n";
     }
     

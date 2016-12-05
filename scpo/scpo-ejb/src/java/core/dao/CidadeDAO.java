@@ -17,19 +17,18 @@ import javax.inject.Inject;
  *
  * @author erick.araujo
  */
-
 @Stateless
 public class CidadeDAO {
-    
+
     @PersistenceContext
     private EntityManager em;
     private DAOBase<Cidade> dao;
-    
+
     @Inject
     Logger log;
-    
+
     @PostConstruct
-    private void init(){
+    private void init() {
         dao = new DAOBase<Cidade>(em, Cidade.class);
     }
 
@@ -44,16 +43,16 @@ public class CidadeDAO {
     public List<Cidade> listarTodos() {
         return dao.listarTodos();
     }
-    
-    public Cidade consultarPorNome(String cidade){
+
+    public Cidade consultarPorNome(String cidade) {
         TypedQuery<Cidade> query = em.createQuery("select c from Cidade c where localidade = :cidade", Cidade.class);
         query.setParameter("cidade", cidade);
-            try{
-                return query.getSingleResult();
-            }catch(NoResultException ex){
-                log.info(ex.getMessage());
-                return null;
-            }
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException ex) {
+            log.info(ex.getMessage());
+            return null;
+        }
     }
 
     public void remover(Cidade entidade) {
@@ -62,9 +61,9 @@ public class CidadeDAO {
 
     public Cidade atualizar(Cidade entidade) {
         return dao.atualizar(entidade);
-    }  
-    
-    public Boolean validaCidade(Cidade cidade){
+    }
+
+    public Boolean validaCidade(Cidade cidade) {
         return true;
     }
 }
