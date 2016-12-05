@@ -10,8 +10,11 @@ import api.response.PessoaResponse;
 import core.dao.PessoaDAO;
 import core.modelo.Pessoa;
 import core.transformer.PessoaTransformer;
+import java.io.IOException;
 import javax.inject.Inject;
+import javax.management.j2ee.statistics.Stats;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -79,5 +82,20 @@ public class PessoaResource {
         }catch(Exception ex){
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
+    }
+    
+    @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{id}")
+    public Response deletar(@PathParam("id") Integer id){
+        Pessoa pessoa = pessoaDAO.consultar(id);
+        
+        try{
+            pessoaDAO.remover(pessoa);
+            return Response.accepted().build();
+        }catch(Exception ex){
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        
     }
 }
