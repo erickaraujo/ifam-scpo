@@ -5,17 +5,15 @@
  */
 package api.resources;
 
+import api.response.EstadoResponse;
 import core.dao.EstadoDAO;
-import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import core.modelo.Estado;
-import api.response.EstadoResponse;
 import core.transformer.EstadoTransformer;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -34,8 +32,22 @@ public class EstadoResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/")
     public Response listarEstados() {
-        return Response.ok().entity(new EstadoResponse(
+        return Response.ok(new EstadoResponse(
                 estadoTransformer.toDTOList(estadoDAO.listarTodos()))
         ).build();
     }
+    
+//    @GET
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Path("/")
+//    public void listarEstados(HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
+//        List<EstadoDTO> lista = new ArrayList<EstadoDTO>();
+//        lista = estadoTransformer.toDTOList(estadoDAO.listarTodos());
+//        System.out.println("t: " + estadoTransformer.toDTOList(estadoDAO.listarTodos()));
+//        request.setAttribute("listaEstados", lista);
+//        RequestDispatcher dispatcher = request.getRequestDispatcher("http://localhost:8080/scpo/");
+//        dispatcher.forward(request, response);
+//    }
+    
+    
 }

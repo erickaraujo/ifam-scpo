@@ -3,26 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package api.response;
+package modeloList;
 
 import api.dto.EstadoDTO;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  *
  * @author erick.araujo
  */
-public class EstadoResponse {
+public class EstadoList {
 
     private List<EstadoDTO> estados;
 
-    public EstadoResponse(List<EstadoDTO> estados) {
-        this.estados = estados;
+    public EstadoList() {
     }
 
-    public EstadoResponse(EstadoDTO... estado) {
-        this.estados = Arrays.asList(estado);
+    public EstadoList(List<EstadoDTO> estados) {
+        this.estados = estados;
     }
 
     public List<EstadoDTO> getEstados() {
@@ -35,8 +33,6 @@ public class EstadoResponse {
 
     @Override
     public String toString() {
-        return "EstadoResponse{" + "estados=" + estados + '}';
+        return "EstadoList{" + "estados=" + estados + '}';
     }
-    
-    
 }

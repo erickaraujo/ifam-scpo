@@ -6,11 +6,16 @@
 package api.dto;
 
 import java.util.Date;
+import javax.ejb.Stateless;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  *
  * @author erick.araujo
  */
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@Stateless
 public class PessoaDTO {
     private Integer id;
     private String nome;

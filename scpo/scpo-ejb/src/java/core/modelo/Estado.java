@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author erick.araujo
  */
 
+
 @XmlRootElement
 @Entity
 @Table(name = "estado")

@@ -6,12 +6,14 @@
 package api.dto;
 
 import javax.ejb.Stateless;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  *
  * @author erick.araujo
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Stateless
 public class EstadoDTO {
     private Integer id;
