@@ -25,11 +25,12 @@ import org.json.JSONObject;
  *
  * @author erick.araujo
  */
-@WebServlet(name = "estado", urlPatterns = {"/exibeEstados"})
+@WebServlet(name = "estado", urlPatterns = {"/estado"})
 public class ServletEstado extends HttpServlet {
 
     private EstadoDTO estadoDTO;
 
+    
     @Override
     public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
         String URL = "http://localhost:8080/scpo/api/estado";

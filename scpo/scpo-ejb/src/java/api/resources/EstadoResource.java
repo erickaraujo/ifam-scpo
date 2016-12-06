@@ -5,14 +5,17 @@
  */
 package api.resources;
 
+import api.dto.EstadoDTO;
 import api.response.EstadoResponse;
 import core.dao.EstadoDAO;
+import core.modelo.Estado;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import core.transformer.EstadoTransformer;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
 /**
@@ -37,17 +40,20 @@ public class EstadoResource {
         ).build();
     }
     
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Path("/")
-//    public void listarEstados(HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
-//        List<EstadoDTO> lista = new ArrayList<EstadoDTO>();
-//        lista = estadoTransformer.toDTOList(estadoDAO.listarTodos());
-//        System.out.println("t: " + estadoTransformer.toDTOList(estadoDAO.listarTodos()));
-//        request.setAttribute("listaEstados", lista);
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("http://localhost:8080/scpo/");
-//        dispatcher.forward(request, response);
-//    }
-    
-    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{sigla}")
+    public Response buscaEstado(@PathParam("sigla") String sigla, EstadoDTO estadoDTO){
+        if(sigla == null){
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }
+        
+        final Estado estado = estadoDAO.consultarPorSigla(sigla);
+        
+        if(estado == null){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        
+        return Response.ok(estadoTransformer.toDTO(estado)).build();
+    }  
 }

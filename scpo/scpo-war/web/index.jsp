@@ -4,22 +4,23 @@
     Author     : erick.araujo
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="; charset=UTF-8">
-        <!--<meta http-equiv="refresh" content=0;url="./listarEstado"/>-->
-        <title>Sistema de Cadastro de Pessoas Online</title>
-        <script src="http://code.jquery.com/jquery-1.10.2.js"
-	type="text/javascript"></script>
-<script src="js/app-ajax.js" type="text/javascript"></script>
-    </head>
-    <body>
-        <h1>Hello!</h1>
-        <form action='./exibeEstados' method='get'>
-            <button type='submit' id='sasa' name='bla'>Listar Estados</button>
-        </form> 
-   </body>
-</html>
+<%@taglib tagdir="/WEB-INF/tags/template" prefix="template" %>
+<template:admin>
+    <jsp:attribute name="extraStyles">
+        <link rel="stylesheet" href="<c:url value='/assets/css/pagination/jqpagination.css'/>" />
+    </jsp:attribute>
+    <jsp:attribute name="extraScripts">
+        <script src="<c:url value='/assets/js/jquery.jqpagination.js'/>"></script>
+    </jsp:attribute>
+    <jsp:body>
+        <div class="table">
+            <div class ="container min-container">
+                <div class='well'>
+                    <h1>Hello!</h1>
+                    <a href="<c:url value='/listarEstado'/>" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Adicionar novo Estado</a>
+                </div>
+            </div>
+        </div>
+    </jsp:body>
+</template:admin>

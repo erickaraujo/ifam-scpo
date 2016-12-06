@@ -19,6 +19,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "estado")
 public class Estado extends EntidadeBase{
 
+    public Estado() {
+    }
+
+    public Estado(String nome) {
+        this.nome = nome;
+    }
+
+    public Estado(String nome, String sigla) {
+        this.nome = nome;
+        this.sigla = sigla;
+    }
+
     @Column(nullable = false)
     private String nome;
     
