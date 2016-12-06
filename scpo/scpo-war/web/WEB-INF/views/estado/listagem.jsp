@@ -16,8 +16,7 @@
           		  <thead>
 	                  <tr>
 	                  	<td>id</td>
-		                  	<td>name</td>
-		                  	<td>description</td>
+		                  	<td>nome</td>
 	                  </tr>
                   </thead>
                   <tbody>
