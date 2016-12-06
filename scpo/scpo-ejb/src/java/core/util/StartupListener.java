@@ -20,7 +20,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import core.modelo.Cidade;
 import core.modelo.Estado;
-import org.json.XML;
+import java.io.IOException;
+import org.slf4j.Logger;
 
 /**
  *
@@ -39,6 +40,9 @@ public class StartupListener{
     
     @Inject
     private CidadeDAO cidadeDAO;
+    
+    @Inject
+    private Logger log;
 
     @PostConstruct
     public void init() {
@@ -66,7 +70,6 @@ public class StartupListener{
 
                     Estado estado = new Estado();
                     Cidade cidade = new Cidade();
-//                    estado.setId(Integer.parseInt(estados[1]));
                     estado.setNome(estados[1]);
                     estado.setSigla(estados[2]);
                     cidade.setLocalidade(estados[3]);
@@ -75,8 +78,8 @@ public class StartupListener{
                     cidadeDAO.inserir(cidade);
                     
                 }
-            } catch (Throwable e) {
-                e.printStackTrace();
+            } catch (IOException e) {
+                log.info(": " + e.getMessage());
             }
         }
     }

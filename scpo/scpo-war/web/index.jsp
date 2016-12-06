@@ -17,8 +17,8 @@
         <div class="table">
             <div class ="container min-container">
                 <div class='well'>
-                    <h1>Hello!</h1>
-                    <a href="<c:url value='/listarEstado'/>" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Adicionar novo Estado</a>
+                    <h1>Hello, welcome to SCPO!</h1>
+                    <a href="<c:url value='/estado'/>" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Adicionar novo Estado</a>
                 </div>
             </div>
         </div>

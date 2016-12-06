@@ -46,11 +46,22 @@ public class CidadeDAO {
     }
 
     public Cidade consultarPorNome(String cidade) {
-        TypedQuery<Cidade> query = em.createQuery("select c from Cidade c where localidade = :cidade", Cidade.class);
+        TypedQuery<Cidade> query = em.createQuery("select c from Cidade c where c.localidade :cidade", Cidade.class);
         query.setParameter("cidade", cidade);
         try {
             return query.getSingleResult();
         } catch (NoResultException ex) {
+            log.info(ex.getMessage());
+            return null;
+        }
+    }
+    
+    public List<Cidade> consultarPorEstado(String estado){
+        TypedQuery<Cidade> query = em.createQuery("SELECT c FROM Cidade c INNER JOIN c.estado e WHERE e.nome = :estado", Cidade.class);
+        query.setParameter("estado", estado);
+        try{
+            return query.getResultList();
+        }catch(NoResultException ex){
             log.info(ex.getMessage());
             return null;
         }
@@ -62,9 +73,5 @@ public class CidadeDAO {
 
     public Cidade atualizar(Cidade entidade) {
         return dao.atualizar(entidade);
-    }
-
-    public Boolean validaCidade(Cidade cidade) {
-        return true;
     }
 }

@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package servlets.estado;
 
 import api.dto.EstadoDTO;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -20,28 +21,26 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import util.OkClient;
 
 /**
  *
  * @author erick.araujo
  */
 @WebServlet(name = "estado", urlPatterns = {"/estado"})
-public class ServletEstado extends HttpServlet {
+public class ListaEstado extends HttpServlet {
 
     private EstadoDTO estadoDTO;
+    
+    @Inject
+    private OkClient okClient;
 
     
     @Override
     public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
-        String URL = "http://localhost:8080/scpo/api/estado";
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(URL)
-                .build();
-
-        Response response = client.newCall(request).execute();
-        String jsonData = response.body().string();
-
+        
+        String jsonData = okClient.receberEndpoint("estado");
+        
         JSONObject jObject = new JSONObject(jsonData);
         JSONArray jArray = jObject.getJSONArray("estados");
 
@@ -55,7 +54,7 @@ public class ServletEstado extends HttpServlet {
             estadoDTO.setSigla(objeto.getString("sigla"));
             lista.add(estadoDTO);
         }
-        System.out.println("lista ---->" + lista);
+        //System.out.println("lista ---->" + lista);
 
         req.setAttribute("lista", lista);
         RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/views/estado/listagem.jsp");
