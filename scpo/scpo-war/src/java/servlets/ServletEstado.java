@@ -57,7 +57,7 @@ public class ServletEstado extends HttpServlet {
         System.out.println("lista ---->" + lista);
 
         req.setAttribute("lista", lista);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/views/estado/listar.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("WEB-INF/views/estado/listagem.jsp");
         dispatcher.forward(req, res);
     }
 

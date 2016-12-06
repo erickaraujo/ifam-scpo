@@ -18,10 +18,8 @@
     </head>
     <body>
         <h1>Hello!</h1>
-        <form action='./listarEstado' method='get'>
-            <button type='submit' id='sasa' name='bla'> bla</button>
-        </form>
-        
-        ${listarEstado}        
+        <form action='./exibeEstados' method='get'>
+            <button type='submit' id='sasa' name='bla'>Listar Estados</button>
+        </form> 
    </body>
 </html>
