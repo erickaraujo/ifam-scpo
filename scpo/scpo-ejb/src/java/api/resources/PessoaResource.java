@@ -13,6 +13,7 @@ import core.transformer.PessoaTransformer;
 import java.io.IOException;
 import javax.inject.Inject;
 import javax.management.j2ee.statistics.Stats;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -58,7 +59,6 @@ public class PessoaResource {
 
             return Response.ok().status(Response.Status.CREATED).build();
         } catch (Exception ex) {
-            ex.printStackTrace();
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
     }
@@ -69,33 +69,46 @@ public class PessoaResource {
     @Path("/{id}")
     public Response editar(@PathParam("id") Integer id, PessoaDTO pessoaDTO) {
         Pessoa pessoa = pessoaDAO.consultar(id);
-        if(pessoa==null){
+        if (pessoa == null) {
             return Response.noContent().status(Response.Status.NOT_FOUND).build();
         }
-        
-        try{
+
+        try {
             Pessoa pessoaAtualizada = pessoaTransformer.toEntity(pessoaDTO);
             pessoaAtualizada.setId(id);
             pessoaDAO.atualizar(pessoaAtualizada);
-            
+
             return Response.accepted(pessoaAtualizada).build();
-        }catch(Exception ex){
+        } catch (Exception ex) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+    }
+
+    @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{id}")
+    public Response deletar(@PathParam("id") Integer id) {
+        Pessoa pessoa = pessoaDAO.consultar(id);
+
+        try {
+            pessoaDAO.remover(pessoa);
+            return Response.accepted().build();
+        } catch (Exception ex) {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
     }
     
-    @DELETE
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/{id}")
-    public Response deletar(@PathParam("id") Integer id){
-        Pessoa pessoa = pessoaDAO.consultar(id);
-        
-        try{
-            pessoaDAO.remover(pessoa);
-            return Response.accepted().build();
-        }catch(Exception ex){
-            return Response.status(Response.Status.BAD_REQUEST).build();
+    @GET
+    @Path("/teste")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response testandoAjax(HttpServletRequest t){
+        String usuario = t.getParameter("pessoaNome").trim();
+        if(usuario == null || "".equals(usuario)){
+            usuario = "Guest";
         }
         
+        String saudacoes = "Hello " + usuario;
+        
+        return Response.ok().entity(usuario).build();
     }
 }

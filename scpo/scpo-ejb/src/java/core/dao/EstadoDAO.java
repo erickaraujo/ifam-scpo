@@ -6,7 +6,7 @@
 package core.dao;
 
 import java.util.List;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

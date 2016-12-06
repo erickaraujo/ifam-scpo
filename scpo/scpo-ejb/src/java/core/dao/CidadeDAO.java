@@ -6,12 +6,13 @@
 package core.dao;
 
 import java.util.List;
-import java.util.logging.Logger;
+
 import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import core.modelo.Cidade;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import org.slf4j.Logger;
 
 /**
  *

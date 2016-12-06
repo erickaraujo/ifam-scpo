@@ -32,4 +32,11 @@ public class EstadoResponse {
     public void setEstados(List<EstadoDTO> estados) {
         this.estados = estados;
     }
+
+    @Override
+    public String toString() {
+        return "EstadoResponse{" + "estados=" + estados + '}';
+    }
+    
+    
 }
