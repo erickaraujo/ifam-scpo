@@ -98,17 +98,5 @@ public class PessoaResource {
         }
     }
     
-    @GET
-    @Path("/teste")
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response testandoAjax(HttpServletRequest t){
-        String usuario = t.getParameter("pessoaNome").trim();
-        if(usuario == null || "".equals(usuario)){
-            usuario = "Guest";
-        }
-        
-        String saudacoes = "Hello " + usuario;
-        
-        return Response.ok().entity(usuario).build();
-    }
+    
 }

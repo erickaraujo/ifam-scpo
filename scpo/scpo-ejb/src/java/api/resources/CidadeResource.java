@@ -6,11 +6,13 @@
 package api.resources;
 
 import api.dto.CidadeDTO;
+import api.dto.EstadoDTO;
 import api.response.CidadeResponse;
 import core.dao.CidadeDAO;
 import core.dao.EstadoDAO;
 import core.modelo.Estado;
 import core.transformer.CidadeTransformer;
+import core.transformer.EstadoTransformer;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,6 +47,12 @@ public class CidadeResource {
     @Inject
     private EstadoDAO estadoDAO;
 
+    @Inject
+    private EstadoDTO estadoDTO;
+
+    @Inject
+    private EstadoTransformer estadoTransformer;
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/")
@@ -64,14 +72,13 @@ public class CidadeResource {
 
         final Estado estado = estadoDAO.consultarPorSigla(nomeEstado);
 
-        return Response.ok(converteXmlToJson(consultaApi(estado.getSigla()))).build();
+        if (estado == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
 
-//        if (cidades.isEmpty()) {
-//            return Response.status(Response.Status.NOT_FOUND).build();
-//        }
-//        return Response.ok().entity(new CidadeResponse(cidadeTransformer
-//                .toDTOList(cidades)))
-//                .build();
+        return Response.ok().entity(
+                converteXmlToJson(consultaApi(estado.getSigla())).toString()
+        ).build();
     }
 
     private String consultaApi(String sigla) throws IOException {
@@ -122,5 +129,14 @@ public class CidadeResource {
 
         return sb.toString();
 
+    }
+
+    public EstadoDTO consultaSigla(String sigla) {
+        if (sigla.isEmpty()) {
+            return null;
+        }
+        final EstadoDTO estado = estadoTransformer.toDTO(estadoDAO.consultarPorSigla(sigla));
+
+        return estado;
     }
 }

@@ -18,7 +18,8 @@
             <div class ="container min-container">
                 <div class='well'>
                     <h1>Hello, welcome to SCPO!</h1>
-                    <a href="<c:url value='/estado'/>" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Adicionar novo Estado</a>
+                    <a href="<c:url value='/estado'/>" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Listar Estados</a>
+                    <a href="<c:url value='/cidade'/>" class="btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Listar Cidades</a>
                 </div>
             </div>
         </div>

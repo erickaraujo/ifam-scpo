@@ -60,14 +60,51 @@ public class LogradouroResource {
             ObjectMapper mapper = new ObjectMapper();
             logradouroDTO = mapper.readValue(new URL("http://viacep.com.br/ws/" + cep + "/json/"), LogradouroDTO.class);
             
-            //verifica se logradouro teve cep ou nao
-            boolean c = logradouroDTO.getCep() != null;
+            LogradouroDTO existe = logradouroTransformer.toDTO(logradouroDAO.consultarPorCep(logradouroDTO.getCep()));
             
-            //implementar. Se true tem/possui string. Se false, algo errado. Escrever teste.
+            if(!existe.equals(logradouroDTO)){
+                logradouroDAO.inserir(logradouroTransformer.toEntity(logradouroDTO));
+                return Response.ok().entity(logradouroTransformer.toEntity(logradouroDTO)).build();
+            }
+            
             logradouroDAO.atualizar(logradouroTransformer.toEntity(logradouroDTO));
-
             return Response.ok().entity(logradouroTransformer.toEntity(logradouroDTO)).build();
 
+        } catch (MalformedURLException e) {
+
+            e.printStackTrace();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        }
+        return null;
+    }
+    
+    public LogradouroDTO verificaCep(String cep){
+        if(cep.isEmpty()){
+            return null;
+        }
+        
+        final LogradouroDTO logradouro = logradouroTransformer.toDTO(logradouroDAO.consultarPorCep(cep));
+        
+        return logradouro;
+    }
+    
+    public LogradouroDTO consultaCep(String cep, LogradouroDTO logradouroDTO) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            logradouroDTO = mapper.readValue(new URL("http://viacep.com.br/ws/" + cep + "/json/"), LogradouroDTO.class);
+            
+            LogradouroDTO logradouro = logradouroTransformer.toDTO(logradouroDAO.consultarPorCep(logradouroDTO.getCep()));
+            
+            if(logradouro == null){
+                return null;
+            }
+            
+            return logradouroDTO;
+            
         } catch (MalformedURLException e) {
 
             e.printStackTrace();
