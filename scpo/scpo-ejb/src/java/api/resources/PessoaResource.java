@@ -53,8 +53,13 @@ public class PessoaResource {
     @Path("/")
     public Response cadastrar(PessoaDTO pessoaDTO) {
         try {
+            final Pessoa pessoaExistente = pessoaDAO.consultarPorEmail(pessoaDTO.getEmail());
+            
+            if(pessoaExistente == null){
+                return Response.status(Response.Status.METHOD_NOT_ALLOWED).build();
+            }
+            
             Pessoa pessoaCadastro = pessoaTransformer.toEntity(pessoaDTO);
-
             pessoaDAO.atualizar(pessoaCadastro);
 
             return Response.ok().status(Response.Status.CREATED).build();
